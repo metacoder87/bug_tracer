@@ -4,19 +4,25 @@ class BugsController < ApplicationController
   # GET /bugs or /bugs.json
   def index
     @bugs = Bug.all
+    render :index
   end
 
   # GET /bugs/1 or /bugs/1.json
   def show
+    @bug = Bug.find(params[:id])
+    render :show
   end
 
   # GET /bugs/new
   def new
     @bug = Bug.new
+    render :new
   end
 
   # GET /bugs/1/edit
   def edit
+    @bug = bugs.find(params[:id])
+    render :edit
   end
 
   # POST /bugs or /bugs.json
