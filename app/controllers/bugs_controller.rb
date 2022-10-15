@@ -1,5 +1,6 @@
 class BugsController < ApplicationController
-  before_action :set_bug, only: %i[ show edit update destroy ]
+  #before_action :require_user!, only: %i(new create edit update)
+  #before_action :set_bug, only: %i[ show edit update destroy ]
 
   # GET /bugs or /bugs.json
   def index
@@ -21,13 +22,13 @@ class BugsController < ApplicationController
 
   # GET /bugs/1/edit
   def edit
-    @bug = bugs.find(params[:id])
+    @bug = current_user.bugs.find(params[:id])
     render :edit
   end
 
   # POST /bugs or /bugs.json
   def create
-    @bug = Bug.new(bug_params)
+    @bug = current_user.bugs.new(bug_params)
 
     respond_to do |format|
       if @bug.save
@@ -42,6 +43,7 @@ class BugsController < ApplicationController
 
   # PATCH/PUT /bugs/1 or /bugs/1.json
   def update
+    @bug = current_user.bugs.find(params[:id])
     respond_to do |format|
       if @bug.update(bug_params)
         format.html { redirect_to bug_url(@bug), notice: "Bug was successfully updated." }
