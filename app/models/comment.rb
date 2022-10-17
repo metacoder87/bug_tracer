@@ -1,4 +1,7 @@
 class Comment < ApplicationRecord
-  belongs_to :user_id
-  belongs_to :bug_id
+  belongs_to :user
+  belongs_to :bug
+  has_many :replies
+
+  validates :body, presence: true 
 end
