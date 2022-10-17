@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
-  resources :comments
   root to: 'bugs#index'
   devise_for :users
 
   resources :bugs do
+    resources :comments do
+      resources :replies
+    end
     collection do
       get :active
       get :archive
