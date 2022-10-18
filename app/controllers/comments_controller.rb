@@ -21,9 +21,9 @@ class CommentsController < ApplicationController
 
   # POST /comments or /comments.json
   def create
-    @bug = Bug.find(params[:bug_id])
-    @comment = @bug.comments.new(comment_params)
-
+    @bug = current_user.bugs.find(params[:bug_id])
+    @comment = @bug.user.comments.new(comment_params)
+    
     respond_to do |format|
       if @comment.save
         format.html { redirect_to @bug, notice: "Comment was successfully created." }
