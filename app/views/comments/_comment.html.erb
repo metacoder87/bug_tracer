@@ -7,6 +7,11 @@
         <br>
         <strong><%= comment.body %></strong>
         <br>
+            <div>
+                <%= link_to 'edit', edit_bug_comment_path(comment) %>
+                <%= button_to 'delete', delete_bug_comment_path, data: { confirm: 'Are you sure?' }, method: :destroy %>
+            </div>
+        <br>
         <br>
     </div>
 
