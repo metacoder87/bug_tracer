@@ -3,9 +3,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :bugs do
-    resources :comments do
-      resources :replies
-    end
+    resources :comments
     collection do
       get :active
       get :archive
