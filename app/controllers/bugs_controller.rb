@@ -57,6 +57,7 @@ class BugsController < ApplicationController
 
   # DELETE /bugs/1 or /bugs/1.json
   def destroy
+    @bug = Bug.find(params[:id])
     @bug.destroy
 
     respond_to do |format|
