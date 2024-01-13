@@ -1,13 +1,17 @@
 class CreateBugs < ActiveRecord::Migration[6.1]
   def change
     create_table :bugs do |t|
-      t.text :path, null: false 
+      t.text :project, null: false
+      t.text :path, null: false
+      t.integer :priority, null: false, default: 0
       t.text :description, null: false
-      # True = Active unsolved bug / False = Archived resolved bug
-      t.boolean :status, :default => false 
+      t.text :finder, null: false
+      t.integer :status, null: false, default: 0
+      t.text :fixer default: 'Unassigned'
 
       t.timestamps
     end
-    add_index :bugs, :path, unique: true 
+    add_index :bugs, :priority
+    add_index :bugs, :status
   end
 end
