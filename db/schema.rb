@@ -10,19 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_21_061114) do
+ActiveRecord::Schema.define(version: 2024_01_06_000337) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "bugs", force: :cascade do |t|
+    t.text "project", null: false
     t.text "path", null: false
+    t.integer "priority", default: 0, null: false
     t.text "description", null: false
-    t.boolean "status", default: false
+    t.text "finder", null: false
+    t.integer "status", default: 0, null: false
+    t.text "fixer"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
-    t.index ["path"], name: "index_bugs_on_path", unique: true
+    t.index ["priority"], name: "index_bugs_on_priority"
+    t.index ["status"], name: "index_bugs_on_status"
     t.index ["user_id"], name: "index_bugs_on_user_id"
   end
 
@@ -32,10 +37,20 @@ ActiveRecord::Schema.define(version: 2022_10_21_061114) do
     t.bigint "bug_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "ancestry"
-    t.index ["ancestry"], name: "index_comments_on_ancestry"
     t.index ["bug_id"], name: "index_comments_on_bug_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "replies", force: :cascade do |t|
+    t.text "body"
+    t.bigint "comment_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "bug_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["bug_id"], name: "index_replies_on_bug_id"
+    t.index ["comment_id"], name: "index_replies_on_comment_id"
+    t.index ["user_id"], name: "index_replies_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -54,4 +69,7 @@ ActiveRecord::Schema.define(version: 2022_10_21_061114) do
   add_foreign_key "bugs", "users"
   add_foreign_key "comments", "bugs"
   add_foreign_key "comments", "users"
+  add_foreign_key "replies", "bugs"
+  add_foreign_key "replies", "comments"
+  add_foreign_key "replies", "users"
 end
