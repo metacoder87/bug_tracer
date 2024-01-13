@@ -23,8 +23,9 @@ class CommentsController < ApplicationController
 
   # POST /comments or /comments.json
   def create
-    @bug = current_user.bugs.find(params[:id])
+    @bug = Bug.find(params[:bug_id])
     @comment = @bug.user.comments.new(comment_params)
+    @comment.user_id = current_user.id
     
     respond_to do |format|
       if @comment.save
@@ -53,7 +54,7 @@ class CommentsController < ApplicationController
   # DELETE /comments/1 or /comments/1.json
   def destroy
     @bug = Bug.find(params[:id])
-    @comment = @bug.comments.find(params[:bug_id])
+    @comment = @bug.comments.find(params[:comment_id])
     @comment.destroy
 
     respond_to do |format|

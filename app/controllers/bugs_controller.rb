@@ -1,6 +1,7 @@
 class BugsController < ApplicationController
   #before_action :require_user!, only: %i(new create edit update)
   #before_action :set_bug, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
 
   # GET /bugs or /bugs.json
   def index
@@ -22,30 +23,39 @@ class BugsController < ApplicationController
 
   # GET /bugs/1/edit
   def edit
-    @bug = current_user.bugs.find(params[:id])
+    @bug = Bug.find(params[:id])
     render :edit
   end
 
-  # POST /bugs or /bugs.json
-  def create
-    @bug = current_user.bugs.new(bug_params)
+  # app/controllers/bugs_controller.rb
+def create
+  @bug = current_user.bugs.new(bug_params)
+  @bug.finder = current_user.email
 
-    respond_to do |format|
-      if @bug.save
-        format.html { redirect_to bug_url(@bug), notice: "Bug was successfully created." }
-        format.json { render :show, status: :created, location: @bug }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @bug.errors, status: :unprocessable_entity }
-      end
+  respond_to do |format|
+    if @bug.save
+      format.html { redirect_to bug_path(@bug), notice: "Bug was successfully created." }
+      format.json { render :show, status: :created, location: @bug }
+    else
+      format.html { render :new, status: :unprocessable_entity }
+      format.json { render json: @bug.errors, status: :unprocessable_entity }
     end
   end
+end
+
 
   # PATCH/PUT /bugs/1 or /bugs/1.json
   def update
-    @bug = current_user.bugs.find(params[:id])
+    @bug = Bug.find(params[:id])
+
+    @bug.fixer = current_user.email
+    
+    # Store the current fixer before the update
+    previous_fixer = @bug.fixer
+
     respond_to do |format|
       if @bug.update(bug_params)
+        set_fixer_if_in_progress(previous_fixer)
         format.html { redirect_to bug_url(@bug), notice: "Bug was successfully updated." }
         format.json { render :show, status: :ok, location: @bug }
       else
@@ -74,6 +84,15 @@ class BugsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def bug_params
-      params.require(:bug).permit(:path, :description, :status)
+      params.require(:bug).permit(:project, :path, :priority, :description, :finder, :status, :fixer)
     end
+
+
+    def set_fixer_if_in_progress(previous_fixer)
+      # Check if the status has changed to 'in_progress' and update the fixer
+      if @bug.status == 'in_progress' && @bug.fixer != previous_fixer
+        @bug.update(fixer: current_user.email)
+      end
+    end
+
 end
