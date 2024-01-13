@@ -12,6 +12,11 @@
   <% end %>
 
   <div class="field">
+    <%= form.label :project %>
+    <%= form.text_area :project %>
+  </div>
+
+  <div class="field">
     <%= form.label :path %>
     <%= form.text_area :path %>
   </div>
@@ -22,9 +27,22 @@
   </div>
 
   <div class="field">
-    <%= form.label :status %>
-    <%= form.check_box :status %>
+    <%= form.label :priority %>
+    <%= form.select :priority, Bug.priorities.keys.map { |priority| [priority.humanize, priority] } %>
   </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.select :status, Bug.statuses.keys.map { |status| [status.humanize, status] } %>
+  </div>
+
+  <%# Display the current fixer value (if it exists) %>
+  <% if bug.fixer.present? %>
+    <div class="field">
+      <%= form.label :fixer %>
+      <%= bug.fixer %>
+    </div>
+  <% end %>
 
   <div class="actions">
     <%= form.submit %>

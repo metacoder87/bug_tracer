@@ -1,5 +1,9 @@
 <h1>New Bug</h1>
 
-<%= render 'form', bug: @bug %>
+<div class="form">
+    <%= render 'form', bug: @bug %>
+</div>
 
-<%= link_to 'Back', bugs_path %>
+<section>
+    <%= link_to 'Back', bugs_path %>
+</section>

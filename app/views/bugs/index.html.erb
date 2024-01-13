@@ -1,24 +1,16 @@
 <p id="notice"><%= notice %></p>
-<% if user_signed_in? %>
-  <span>
-    Logged in as
-    <%= current_user.email %>
-  </span>
-  <%= link_to 'Logout', destroy_user_session_path %>
-<% else %>
-  <%= link_to 'Sign Up', new_user_registration_path %>
-  <%= link_to 'Sign In', new_user_session_path %>
-<% end %>
 
-<br>
+  <h1>Bug Tracker</h1>
 
-<h1>Bug Tracker</h1>
-
-<%= link_to 'New Bug', new_bug_path %>
-<br>
-
-<%= link_to 'Active', active_bugs_path %>
-
-<br>
-<%= link_to 'Archive', archive_bugs_path %>
-
+  <div class="box">
+    <%= link_to 'New Bug', new_bug_path %>
+  </div>
+  <div class="box">
+    <%= link_to 'Active', active_bugs_path %>
+  </div>
+  <div class="box">
+    <%= link_to 'Archive', archive_bugs_path %>
+  </div>
+  <div class="box">
+    <%= link_to 'Processing', processing_bugs_path %>
+  </div>

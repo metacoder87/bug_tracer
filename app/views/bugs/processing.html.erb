@@ -1,4 +1,4 @@
-<h1>Archived Bugs</h1>
+<h1>Bugs in Process</h1>
 
 <table>
   <thead>
@@ -13,7 +13,7 @@
 
   <tbody>
     <% Bug.all.each do |bug| %>
-      <% if bug.status == "solved" %>
+      <% if bug.status == "in_progress" %>
         <tr>
           <td><%= bug.project %></td>
           <td><%= bug.description %></td>
