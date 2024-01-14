@@ -7,7 +7,7 @@ class CreateBugs < ActiveRecord::Migration[6.1]
       t.text :description, null: false
       t.text :finder, null: false
       t.integer :status, null: false, default: 0
-      t.text :fixer default: 'Unassigned'
+      t.text :fixer, default: 'Unassigned'
 
       t.timestamps
     end
