@@ -37,5 +37,51 @@
       </div>
       <%= yield %>
     </main>
+      <div id="cookie-consent-banner" class="cookie-consent-banner" role="dialog" aria-live="polite" aria-describedby="cookie-notice">
+        <p id="cookie-notice">
+          We use essential cookies to ensure secure sign-on and website functionality. These cookies are necessary and cannot be disabled.
+          <a href="#" id="learn-more">Learn more</a>.
+        </p>
+        <button id="accept-cookies">OK</button>
+
+        <!-- Modal (hidden by default) -->
+        <div id="cookie-modal" class="cookie-modal hidden">
+          <div class="cookie-modal-content">
+            <span id="close-modal" class="close">&times;</span>
+            <h2>Cookie Policy</h2>
+            <p>We use only essential cookies to provide core functionality, such as secure sign-on and website security. These cookies are necessary and do not require consent.</p>
+            <table>
+              <tr>
+                <th>Cookie Name</th>
+                <th>Purpose</th>
+                <th>Duration</th>
+              </tr>
+              <tr>
+                <td>_my_app_session</td>
+                <td>Manages user session for secure navigation</td>
+                <td>Session (expires when browser closes)</td>
+              </tr>
+              <tr>
+                <td>csrf_token</td>
+                <td>Protects against cross-site request forgery attacks</td>
+                <td>Session</td>
+              </tr>
+              <tr>
+                <td>remember_user_token</td>
+                <td>Allows persistent login (optional)</td>
+                <td>Configurable (e.g., 2 weeks)</td>
+              </tr>
+
+              <tr>
+                <td>cookieConsent</td>
+                <td>Stores acknowledgment of cookie notice</td>
+                <td>1 year</td>
+              </tr>
+            </table>
+            <p>No tracking or third-party cookies are used.</p>
+            <p>Contact us at [your-email] for data protection questions.</p>
+          </div>
+        </div>
+      </div>
   </body>
 </html>

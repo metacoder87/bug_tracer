@@ -145,3 +145,118 @@ input[type="submit"]:hover {
 form {
     margin-top: 10px;
 }
+
+
+
+
+/* Testing styles */
+/* Cookie Consent Banner Styles (existing) */
+.cookie-consent-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #1C0658;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    z-index: 1000;
+    display: none;
+    /* Controlled by JS */
+}
+
+.cookie-consent-banner p {
+    margin: 0;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.cookie-consent-banner a {
+    color: #FF1690;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.cookie-consent-banner button {
+    background-color: #FF1690;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: 'Space Mono', monospace;
+    font-weight: bold;
+}
+
+.cookie-consent-banner button:hover {
+    background-color: #FF45A5;
+}
+
+/* New Modal Styles */
+.cookie-modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent backdrop */
+    z-index: 2000;
+    overflow: auto;
+}
+
+.cookie-modal-content {
+    background-color: #fff;
+    color: #FF1690;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 600px;
+    font-family: 'Roboto Mono', monospace;
+    position: relative;
+}
+
+.cookie-modal-content h2 {
+    font-family: 'Space Mono', monospace;
+    color: #1C0658;
+}
+
+.cookie-modal-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+}
+
+.cookie-modal-content th,
+.cookie-modal-content td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.cookie-modal-content th {
+    background-color: #f2f2f2;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: #333;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #FF1690;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Ensure modal shows when not hidden */
+.cookie-modal:not(.hidden) {
+    display: block;
+}
