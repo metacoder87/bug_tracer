@@ -12,10 +12,8 @@
 require 'faker'
 
 # Clear existing data
-User.destroy_all
-Bug.destroy_all
-Comment.destroy_all
-Reply.destroy_all
+puts "Clearing existing data..."
+[Reply, Comment, Bug, User].each(&:destroy_all)
 
 # Seed Users
 users = []
@@ -43,10 +41,10 @@ bugs = []
   bugs << Bug.create!(
     project: Faker::App.name,
     path: Faker::File.file_name(dir: 'projects'),
-    priority: rand(0..5),
+    priority: rand(0..2),
     description: Faker::Lorem.sentence,
     finder: Faker::Name.name,
-    status: rand(0..3),
+    status: rand(0..2),
     fixer: ['Unassigned', Faker::Name.name].sample,
     created_at: Faker::Time.backward(days: 365),
     updated_at: Faker::Time.backward(days: 365),
